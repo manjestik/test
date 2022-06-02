@@ -45,27 +45,28 @@ pipeline {
             parallel {
                 stage('TAG') {
                     steps{
-                        sh 'mkdir vicont-backend; cd vicont-backend'
-                        checkout(
-                            [$class: 'GitSCM',
-                            branches: [[name: "${params.BACKEND_TAG}"]],
-                            doGenerateSubmoduleConfigurations: false,
-                            extensions: [],
-                            submoduleCfg: [], userRemoteConfigs:
-                            [[credentialsId: 'manjestik_github',
-                            url: 'git@github.com:manjestik/test2.git']]]
-                        )
-
-                        sh 'mkdir vicont-frontend; cd vicont-frontend'
-                        checkout(
-                            [$class: 'GitSCM',
+                        dir('vicont-backend') {
+                            checkout(
+                                [$class: 'GitSCM',
+                                branches: [[name: "${params.BACKEND_TAG}"]],
+                                doGenerateSubmoduleConfigurations: false,
+                                extensions: [],
+                                submoduleCfg: [], userRemoteConfigs:
+                                [[credentialsId: 'manjestik_github',
+                                url: 'git@github.com:manjestik/test2.git']]]
+                            )
+                        }
+                        dir('vicont-frontend') {
+                            checkout(
+                                [$class: 'GitSCM',
                             branches: [[name: "${params.FRONTEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
                             extensions: [],
                             submoduleCfg: [], userRemoteConfigs:
                             [[credentialsId: 'manjestik_github',
                             url: 'git@github.com:manjestik/test3.git']]]
-                        )
+                            )
+                        }
                     }
                 }
             }
