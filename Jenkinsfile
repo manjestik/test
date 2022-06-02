@@ -41,11 +41,12 @@ pipeline {
                 '''
             }
         }
-        stage('clone') {
+        stage('Checkout') {
             parallel {
                 stage('TAG') {
                     steps{
-                        clone(
+                        sh 'mkdir vicont-backend; cd vicont-backend'
+                        checkout(
                             [$class: 'GitSCM',
                             branches: [[name: "${params.BACKEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
@@ -55,7 +56,8 @@ pipeline {
                             url: 'git@github.com:manjestik/test2.git']]]
                         )
 
-                        clone(
+                        sh 'mkdir vicont-frontend; cd vicont-frontend'
+                        checkout(
                             [$class: 'GitSCM',
                             branches: [[name: "${params.FRONTEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
