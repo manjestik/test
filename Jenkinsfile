@@ -47,7 +47,7 @@ pipeline {
                     steps{
                         checkout(
                             [$class: 'GitSCM',
-                            branches: [[name: "${params.TAG}"]],
+                            branches: [[name: "${params.BACKEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
                             extensions: [],
                             submoduleCfg: [], userRemoteConfigs:
@@ -57,7 +57,7 @@ pipeline {
 
                         checkout(
                             [$class: 'GitSCM',
-                            branches: [[name: "${params.TAG}"]],
+                            branches: [[name: "${params.FRONTEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
                             extensions: [],
                             submoduleCfg: [], userRemoteConfigs:
