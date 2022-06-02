@@ -4,7 +4,7 @@ pipeline {
     parameters {
         gitParameter (  branch: '',
                         branchFilter: '.*',
-                        defaultValue: 'main',
+                        defaultValue: '*',
                         description: '',
                         name: 'BACKEND_TAG',
                         quickFilterEnabled: true,
@@ -15,7 +15,7 @@ pipeline {
                         useRepository: 'git@github.com:manjestik/test2.git')
         gitParameter (  branch: '',
                         branchFilter: '.*',
-                        defaultValue: 'main',
+                        defaultValue: '*',
                         description: '',
                         name: 'FRONTEND_TAG',
                         quickFilterEnabled: true,
