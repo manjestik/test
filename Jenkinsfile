@@ -4,7 +4,7 @@ pipeline {
     parameters {
         gitParameter (  branch: '',
                         branchFilter: '.*',
-                        defaultValue: 'main',
+                        defaultValue: '*',
                         description: '',
                         name: 'BACKEND_TAG',
                         quickFilterEnabled: true,
@@ -15,7 +15,7 @@ pipeline {
                         useRepository: 'git@github.com:manjestik/test2.git')
         gitParameter (  branch: '',
                         branchFilter: '.*',
-                        defaultValue: 'main',
+                        defaultValue: '*',
                         description: '',
                         name: 'FRONTEND_TAG',
                         quickFilterEnabled: true,
@@ -41,11 +41,11 @@ pipeline {
                 '''
             }
         }
-        stage('Clone') {
+        stage('Checkout') {
             parallel {
                 stage('TAG') {
                     steps{
-                        clone(
+                        checkout(
                             [$class: 'GitSCM',
                             branches: [[name: "${params.BACKEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
@@ -55,7 +55,7 @@ pipeline {
                             url: 'git@github.com:manjestik/test2.git']]]
                         )
 
-                        clone(
+                        checkout(
                             [$class: 'GitSCM',
                             branches: [[name: "${params.FRONTEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
