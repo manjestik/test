@@ -41,11 +41,11 @@ pipeline {
                 '''
             }
         }
-        stage('Checkout') {
+        stage('clone') {
             parallel {
                 stage('TAG') {
                     steps{
-                        checkout(
+                        clone(
                             [$class: 'GitSCM',
                             branches: [[name: "${params.BACKEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
@@ -55,7 +55,7 @@ pipeline {
                             url: 'git@github.com:manjestik/test2.git']]]
                         )
 
-                        checkout(
+                        clone(
                             [$class: 'GitSCM',
                             branches: [[name: "${params.FRONTEND_TAG}"]],
                             doGenerateSubmoduleConfigurations: false,
