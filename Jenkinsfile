@@ -72,7 +72,6 @@ pipeline {
             steps {
                 sh '''
                     ls -la
-                    cat server.py
                 '''
             }
         }
